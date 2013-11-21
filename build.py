@@ -1,4 +1,4 @@
-import socket, time, os, subprocess, shutil, sys
+import os, shutil, socket, subprocess, sys, time
 
 MOD_NAME = 'CrashReporter'
 MOD_VERSION = '1.0'
