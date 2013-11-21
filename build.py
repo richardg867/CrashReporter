@@ -137,7 +137,8 @@ def main():
 	print '*** Calling MCP...'
 	print ''
 	
-	# All of this is a big dirty hack...
+	# All of this is a big dirty hack... I'm *trying* to find a better way with
+	# Searge/ProfMobius, but so far nothing happened
 	cwd = os.getcwd()
 	os.chdir(os.path.join(FORGE_PATH, 'mcp'))
 	
@@ -153,8 +154,8 @@ def main():
 		return
 	
 	runtime.recompile.main()
-	sys.argv.append('--srgnames')
-	runtime.reobfuscate.main()
+	sys.argv.append('--srgnames') # and this is the worst
+	runtime.reobfuscate.main()    # part of this hack
 	
 	os.chdir(cwd)
 	sys.exit = prev_exit
