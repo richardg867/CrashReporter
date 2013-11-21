@@ -108,7 +108,7 @@ def main():
 	info.write(MOD_NOTICE + '\n')
 	info.write('\n')
 	info.write(
-		'Built {0} {1} {2} {3:02d}:{4:=02d}:{5:02d} by {6}@{7}\n'.format(
+		'Built {0} {1} {2} {3:02d}:{4:02d}:{5:02d} by {6}@{7}\n'.format(
 		MONTHS[build_time.tm_mon], build_time.tm_mday, build_time.tm_year,
 		build_time.tm_hour, build_time.tm_min, build_time.tm_sec,
 		os.getenv('USERNAME'), socket.gethostname()))
