@@ -29,7 +29,7 @@ public class Http {
 	public static Response post(URL url, Object postData, Map<String, String> reqHeaders) throws IOException {
 		try {
 			String data = "";
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			
 			// fill POST headers
 			if (postData != null) {

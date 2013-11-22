@@ -43,6 +43,8 @@ public class ServerLogHandler extends Handler {
 			
 			CrashReporter.instance.report("Server crash", report);
 		} else if (record.getMessage().equals("We were unable to save this crash report to disk.")) {
+			kickAllPlayers();
+			
 			CrashReporter.instance.report("Server crash", "Crash report could not be saved!");
 		}
 	}
