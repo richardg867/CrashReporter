@@ -7,7 +7,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.logging.Level;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import crashreporter.api.Configurable;
 import crashreporter.api.Configurable.ConfigurationException;
@@ -102,6 +110,28 @@ public class Configuration {
 				CrashReporter.instance.notificationProviders.add(providerInstance);
 				currentConfigurable = providerInstance;
 			}
+		} else if (key.equals("untrusted-ssl")) {
+			// http://stackoverflow.com/questions/1828775/how-to-handle-invalid-ssl-certificates-with-apache-httpclient
+			try {
+				SSLContext ctx = SSLContext.getInstance("TLS");
+				ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
+				SSLContext.setDefault(ctx);
+			} catch (Throwable e) {
+				CrashReporter.instance.log.log(Level.WARNING, "Failed to enable untrusted SSL", e);
+			}
+		}
+	}
+	
+	private static class DefaultTrustManager implements X509TrustManager {
+		@Override
+        public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
+
+		@Override
+		public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
+
+		@Override
+		public X509Certificate[] getAcceptedIssuers() {
+			return null;
 		}
 	}
 }
