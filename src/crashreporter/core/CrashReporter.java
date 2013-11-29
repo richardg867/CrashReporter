@@ -49,6 +49,7 @@ public class CrashReporter {
 		
 		Registry.registerNotificationProvider("forgeirc", NotifyForgeIRC.class);
 		Registry.registerNotificationProvider("http", NotifyHttp.class);
+		Registry.registerNotificationProvider("mail", NotifyMail.class);
 	}
 	
 	@EventHandler
@@ -66,7 +67,7 @@ public class CrashReporter {
 		// act as a paperweight on client, since the logger getter on ILogAgent is server-only
 		if (FMLCommonHandler.instance().getSide() == Side.SERVER) new ServerLogHandler();
 		
-		//event.registerServerCommand(new Debug());
+		event.registerServerCommand(new Debug());
 	}
 	
 	public void report(CrashReport report) {
@@ -86,12 +87,14 @@ public class CrashReporter {
 		
 		if (link == null) {
 			log.log(Level.SEVERE, "No pastebin providers could handle the request");
-			return;
+			link = "<No link>";
 		}
+		
+		log.log(Level.INFO, "Report posted to: " + link);
 		
 		for (NotificationProvider provider : notificationProviders) {
 			try {
-				provider.notify(title, link);
+				provider.notify(title, text, link);
 			} catch (NotifyException e) {
 				e.printStackTrace(); // FIXME
 			}

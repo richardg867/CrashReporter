@@ -65,10 +65,15 @@ public class Configuration {
 			if (line.isEmpty() || line.charAt(0) == '#') continue;
 			
 			int idx = line.indexOf(' ');
-			if (idx == -1) continue;
 			
-			String key = line.substring(0, idx);
-			String value = line.substring(idx + 1);
+			String key, value;
+			if (idx == -1) {
+				key = line;
+				value = "";
+			} else {
+				key = line.substring(0, idx);
+				value = line.substring(idx + 1);
+			}
 			
 			try {
 				parseConfig(key, value);

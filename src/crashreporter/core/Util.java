@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import cpw.mods.fml.common.Loader;
+
 /**
  * Utility class.
  * 
@@ -34,5 +36,10 @@ public class Util {
 		while ((read = in.read(buffer)) != -1) {
 			out.write(buffer, 0, read);
 		}
+	}
+
+	public static String getUserAgent() {
+		Loader loader = Loader.instance();
+		return "CrashReporter/" + CrashReporter.VERSION + " " + loader.getMCVersionString().replace(' ', '/') + " FML/" + loader.getFMLVersionString();
 	}
 }

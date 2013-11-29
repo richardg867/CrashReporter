@@ -54,7 +54,7 @@ public class NotifyForgeIRC implements NotificationProvider {
 	}
 
 	@Override
-	public void notify(String title, String url) throws NotifyException {
+	public void notify(String title, String text, String url) throws NotifyException {
 		if (!reflected) return;
 		
 		try {

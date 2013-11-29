@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
-import cpw.mods.fml.common.Loader;
-
 import net.minecraft.util.HttpUtil;
 
 /**
@@ -42,8 +40,7 @@ public class Http {
 			}
 			
 			// set up connection
-			Loader loader = Loader.instance();
-			connection.setRequestProperty("User-Agent", "CrashReporter/" + CrashReporter.VERSION + " " + loader.getMCVersionString().replace(' ', '/') + " FML/" + loader.getFMLVersionString());
+			connection.setRequestProperty("User-Agent", Util.getUserAgent());
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
 			

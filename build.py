@@ -1,7 +1,7 @@
 import os, shutil, socket, subprocess, sys, time
 
 MOD_NAME = 'CrashReporter'
-MOD_VERSION = '1.0'
+MOD_VERSION = '1.1'
 MOD_FILE = os.path.join('crashreporter', 'core', 'CrashReporter.java')
 MOD_NOTICE = 'An open source creation by Ferris Wheel Modding: ' \
 	'https://github.com/richardg867/CrashReporter'

@@ -35,7 +35,7 @@ public class NotifyHttp implements NotificationProvider {
 	}
 
 	@Override
-	public void notify(String title, String url) throws NotifyException {
+	public void notify(String title, String text, String url) throws NotifyException {
 		Map<String, String> headers = null;
 		if (auth != null) {
 			headers = new HashMap<String, String>(1);
