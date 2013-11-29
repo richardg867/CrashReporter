@@ -16,6 +16,11 @@ import org.bouncycastle.util.encoders.Base64;
 import crashreporter.api.NotificationProvider;
 import crashreporter.core.Util;
 
+/**
+ * SMTP mail notification provider.
+ * 
+ * @author Richard
+ */
 public class NotifyMail implements NotificationProvider {
 	private String server;
 	private int port = 25;

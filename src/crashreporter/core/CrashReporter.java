@@ -50,6 +50,7 @@ public class CrashReporter {
 		Registry.registerNotificationProvider("forgeirc", NotifyForgeIRC.class);
 		Registry.registerNotificationProvider("http", NotifyHttp.class);
 		Registry.registerNotificationProvider("mail", NotifyMail.class);
+		Registry.registerNotificationProvider("googledrive", NotifyGoogleDrive.class);
 	}
 	
 	@EventHandler
@@ -67,7 +68,7 @@ public class CrashReporter {
 		// act as a paperweight on client, since the logger getter on ILogAgent is server-only
 		if (FMLCommonHandler.instance().getSide() == Side.SERVER) new ServerLogHandler();
 		
-		event.registerServerCommand(new Debug());
+		//event.registerServerCommand(new Debug());
 	}
 	
 	public void report(CrashReport report) {
@@ -80,7 +81,7 @@ public class CrashReporter {
 			try {
 				link = provider.paste(title, text);
 				break;
-			} catch (PasteException e) {
+			} catch (Throwable e) {
 				e.printStackTrace(); // FIXME
 			}
 		}
@@ -95,7 +96,7 @@ public class CrashReporter {
 		for (NotificationProvider provider : notificationProviders) {
 			try {
 				provider.notify(title, text, link);
-			} catch (NotifyException e) {
+			} catch (Throwable e) {
 				e.printStackTrace(); // FIXME
 			}
 		}
