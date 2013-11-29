@@ -58,10 +58,10 @@ public class NotifyGoogleDrive implements NotificationProvider {
 		
 		Map<String, String> postvars = new HashMap<String, String>(2);
 		postvars.put(titleInput, title);
-		postvars.put(textInput, text);System.out.println(postvars);
+		postvars.put(textInput, text);
 		
 		try {
-			System.out.println(Http.post(new URL(formTarget), postvars).text);
+			Http.post(new URL(formTarget), postvars);
 		} catch (Throwable e) {
 			throw new NotifyException(e);
 		}
