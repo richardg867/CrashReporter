@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -24,6 +26,7 @@ public class NotifyMail implements NotificationProvider {
 	private String from;
 	private String[] to;
 	private String subject = "{title}";
+	private List<String> headers = new LinkedList<String>();
 	
 	@Override
 	public void parseConfig(String key, String value) throws ConfigurationException {
@@ -37,6 +40,8 @@ public class NotifyMail implements NotificationProvider {
 			}
 		} else if (key.equals("ssl")) {
 			ssl = true;
+		} else if (key.equals("domain")) {
+			domain = value;
 		} else if (key.equals("username")) {
 			username = value;
 		} else if (key.equals("password")) {
@@ -47,6 +52,8 @@ public class NotifyMail implements NotificationProvider {
 			to = value.split(",");
 		} else if (key.equals("subject")) {
 			subject = value;
+		} else if (key.equals("header")) {
+			headers.add(value);
 		}
 	}
 
@@ -67,7 +74,7 @@ public class NotifyMail implements NotificationProvider {
 			String resp;
 			
 			// read the banner
-			while ((resp = reader.readLine()) == null);
+			while (reader.readLine() == null);
 			
 			// I know it may be against spec to try and authenticate without a EHLO, but reading all the lines would be a pain
 			writer.println("HELO " + domain);
@@ -113,6 +120,11 @@ public class NotifyMail implements NotificationProvider {
 			writer.println();
 			writer.println("Subject: " + subject.replace("{title}", title));
 			writer.println("X-Mailer: " + Util.getUserAgent());
+			
+			for (String header : headers) {
+				writer.println(header);
+			}
+			
 			writer.println();
 			
 			for (String line : text.split("\n")) {
