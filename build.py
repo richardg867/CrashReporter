@@ -3,7 +3,7 @@ import os, shutil, socket, subprocess, sys, time
 MOD_NAME = 'CrashReporter'
 MOD_VERSION = '1.1'
 MOD_FILE = os.path.join('crashreporter', 'core', 'CrashReporter.java')
-MOD_NOTICE = 'An open source creation by Ferris Wheel Modding: ' \
+MOD_NOTICE = 'This is an open source mod: ' \
 	'https://github.com/richardg867/CrashReporter'
 
 # FORGE_PATH should have forge.py, forgeversion.properties, install.cmd, etc.
